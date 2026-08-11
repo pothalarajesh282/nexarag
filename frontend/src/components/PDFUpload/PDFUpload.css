@@ -1,0 +1,262 @@
+/* ==========================================================================
+   PDFUpload — admin-only document intake, compact strip
+   ========================================================================== */
+
+.pdf-upload {
+  position: relative;
+
+  padding: 14px 16px;
+
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.pdf-upload::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--brass);
+  opacity: 0.8;
+}
+
+.pdf-upload-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 12px;
+  padding-left: 6px;
+}
+
+.pdf-upload-icon {
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--r-sm);
+
+  background: var(--signal-soft);
+  color: var(--signal-strong);
+}
+
+.pdf-upload-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdf-upload-header > div {
+  min-width: 0;
+}
+
+.pdf-upload-label {
+  display: block;
+
+  color: var(--brass);
+
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.pdf-upload-header h2 {
+  font-size: 13.5px;
+  line-height: 1.3;
+  letter-spacing: -0.05px;
+}
+
+.pdf-upload-header p {
+  display: none;
+}
+
+.pdf-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 6px;
+}
+
+.pdf-file-input {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  height: 40px;
+  padding: 0 12px;
+
+  border: 1.5px dashed var(--line);
+  border-radius: var(--r-sm);
+
+  background: var(--surface-sunken);
+  color: var(--ink-soft);
+
+  font-size: 12.5px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.pdf-file-input:hover {
+  border-color: var(--signal-line);
+  background: var(--signal-soft);
+  color: var(--signal-strong);
+}
+
+.pdf-file-input svg {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.pdf-file-input span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-file-input input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pdf-selected {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 10px;
+
+  border: 1px solid var(--brass-line);
+  border-radius: var(--r-sm);
+
+  background: var(--brass-soft);
+  color: #7a5a17;
+
+  font-size: 11.5px;
+}
+
+.pdf-selected svg {
+  flex-shrink: 0;
+  width: 13px;
+  height: 13px;
+  color: var(--brass);
+}
+
+.pdf-selected span:first-of-type {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.pdf-selected span:last-of-type {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  color: #8a6a25;
+}
+
+.pdf-upload-button {
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  border: none;
+  border-radius: var(--r-sm);
+
+  background: var(--signal-strong);
+  color: #fff;
+
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+}
+
+.pdf-upload-button svg {
+  width: 15px;
+  height: 15px;
+}
+
+.pdf-upload-button:hover:not(:disabled) {
+  background: var(--signal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.pdf-upload-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pdf-success,
+.pdf-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+
+  margin-top: 10px;
+  padding: 8px 10px;
+
+  border-radius: var(--r-sm);
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.pdf-success {
+  border: 1px solid #bfe3cd;
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.pdf-error {
+  border: 1px solid #f3c6c3;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.pdf-success svg,
+.pdf-error svg {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+}
+
+@media (max-width: 560px) {
+  .pdf-upload {
+    padding: 12px 14px;
+  }
+
+  .pdf-upload-header p {
+    display: none;
+  }
+}

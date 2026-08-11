@@ -1,0 +1,174 @@
+/* ==========================================================================
+   NexaRAG — Design tokens
+   Enterprise knowledge-assistant. Warm paper canvas + disciplined signal
+   blue + brass "ledger" accent for citations/admin. Space Grotesk for
+   structure, Inter for reading, IBM Plex Mono for data/metadata.
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+:root {
+  /* Surfaces */
+  --ink: #14151b;
+  --ink-soft: #4a4d5a;
+  --ink-faint: #8a8d99;
+  --paper: #f4f2ec;
+  --surface: #ffffff;
+  --surface-sunken: #faf9f5;
+  --line: #e3e0d4;
+  --line-soft: #ece9dd;
+
+  /* Dark chrome (header / nav) */
+  --chrome: #14161f;
+  --chrome-soft: #1d2030;
+  --chrome-line: #2b2e40;
+  --chrome-text: #eef0f6;
+  --chrome-text-soft: #9a9db3;
+
+  /* Signal (primary action / brand) */
+  --signal: #2c4a8c;
+  --signal-strong: #21376b;
+  --signal-soft: #e9eefb;
+  --signal-line: #c7d4ee;
+
+  /* Ledger accent (citations, admin, highlights) */
+  --brass: #a8791f;
+  --brass-soft: #f6ecd6;
+  --brass-line: #e6d3a4;
+
+  /* Status */
+  --success: #1e7a4c;
+  --success-soft: #e7f5ee;
+  --danger: #b3261e;
+  --danger-soft: #fbeae9;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(20, 21, 27, 0.06);
+  --shadow-md: 0 8px 24px -8px rgba(20, 21, 27, 0.16);
+  --shadow-lg: 0 24px 64px -20px rgba(20, 21, 27, 0.28);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+
+  /* Type */
+  --font-display: "Space Grotesk", "Inter", -apple-system, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  text-align: left;
+  border-inline: none;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--signal-soft);
+  color: var(--signal-strong);
+}
+
+/* Scrollbars (WebKit) — quiet, thin, matches paper canvas */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d4c4;
+  border-radius: 999px;
+  border: 2px solid var(--paper);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9c4ae;
+}
+
+/* Consistent, visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+code,
+.counter {
+  font-family: var(--font-mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--ink);
+}
+
+code {
+  font-size: 13px;
+  line-height: 135%;
+  padding: 3px 7px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,500 @@
+/* ==========================================================================
+   RAGChat — document-grounded chat console
+   Signature element: citation "ledger tabs" under assistant replies — small
+   brass index-tab chips that visually cite the source count, echoing the
+   tab strip on Documents cards. Dark header, warm paper message field.
+   ========================================================================== */
+
+.rag-page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
+
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---------- Header ---------- */
+.rag-header {
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 16px 20px;
+
+  background: var(--chrome);
+  color: var(--chrome-text);
+  border-bottom: 1px solid var(--chrome-line);
+}
+
+.rag-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.rag-logo {
+  flex-shrink: 0;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--r-sm);
+
+  background: var(--signal);
+  color: #fff;
+}
+
+.rag-brand h1 {
+  color: var(--chrome-text);
+  font-size: 15px;
+  letter-spacing: -0.1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rag-brand p {
+  margin-top: 1px;
+  color: var(--chrome-text-soft);
+  font-size: 12px;
+}
+
+.rag-status {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 6px 12px;
+
+  border: 1px solid var(--chrome-line);
+  border-radius: 999px;
+
+  background: var(--chrome-soft);
+  color: var(--chrome-text-soft);
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px rgba(30, 122, 76, 0.25);
+  animation: rag-pulse 2s ease-in-out infinite;
+}
+
+@keyframes rag-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ---------- Chat area ---------- */
+.rag-chat-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+
+  background: var(--paper);
+}
+
+/* Empty state */
+.rag-empty {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 32px 24px;
+}
+
+.rag-empty-icon {
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: var(--r-lg);
+
+  background: var(--signal-soft);
+  color: var(--signal-strong);
+}
+
+.rag-label {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  color: var(--brass);
+
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+}
+
+.rag-empty h2 {
+  max-width: 320px;
+  font-size: 19px;
+  letter-spacing: -0.2px;
+}
+
+.rag-empty p {
+  max-width: 340px;
+  margin-top: 10px;
+
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.rag-prompts {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+
+  width: 100%;
+  /* max-width: 380px;
+  margin-top: 22px; */
+}
+
+.rag-prompts button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 11px 14px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+
+  background: var(--surface);
+  color: var(--ink);
+
+  font-size: 13px;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
+}
+
+.rag-prompts button svg {
+  flex-shrink: 0;
+  color: var(--signal);
+}
+
+.rag-prompts button:hover {
+  border-color: var(--signal-line);
+  background: var(--signal-soft);
+  transform: translateX(2px);
+}
+
+/* Messages */
+.rag-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 20px;
+}
+
+.rag-message {
+  display: flex;
+  gap: 10px;
+  max-width: 88%;
+
+  animation: rag-message-in 0.22s ease both;
+}
+
+@keyframes rag-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rag-message.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.rag-message-avatar {
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: var(--signal-strong);
+  color: #fff;
+}
+
+.rag-message.user .rag-message-avatar {
+  background: var(--ink);
+}
+
+.rag-message-body {
+  min-width: 0;
+}
+
+.rag-message-name {
+  margin-bottom: 4px;
+
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.rag-message.user .rag-message-name {
+  text-align: right;
+}
+
+.rag-message-content {
+  padding: 11px 14px;
+
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+  color: var(--ink);
+
+  font-size: 13.5px;
+  line-height: 1.6;
+  /* white-space: pre-wrap; */
+  word-break: break-word;
+}
+
+.rag-message.assistant .rag-message-content {
+  border-top-left-radius: 4px;
+}
+
+.rag-message.user .rag-message-content {
+  border-top-right-radius: 4px;
+  background: var(--signal-strong);
+  border-color: var(--signal-strong);
+  color: #fff;
+}
+
+/* Signature: source citation ledger tab */
+.rag-source-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-top: 8px;
+  padding: 5px 10px 5px 8px;
+
+  border: 1px solid var(--brass-line);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  border-left: 3px solid var(--brass);
+
+  background: var(--brass-soft);
+  color: #7a5a17;
+
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.rag-source-info svg {
+  flex-shrink: 0;
+  color: var(--brass);
+}
+
+/* Thinking indicator */
+.rag-thinking {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 13px 14px;
+
+  border-radius: var(--r-md);
+  border-top-left-radius: 4px;
+  border: 1px solid var(--line);
+
+  background: var(--surface);
+}
+
+.rag-thinking span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-faint);
+  animation: rag-thinking-bounce 1.1s ease-in-out infinite;
+}
+
+.rag-thinking span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.rag-thinking span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes rag-thinking-bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* ---------- Input ---------- */
+.rag-input-wrapper {
+  flex: 0 0 auto;
+
+  padding: 14px 18px 16px;
+
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.rag-input-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 5px 5px 5px 16px;
+
+  border: 1px solid var(--line);
+  border-radius: 999px;
+
+  background: var(--surface-sunken);
+
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.rag-input-form:focus-within {
+  border-color: var(--signal);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--signal-soft);
+}
+
+.rag-input-form input {
+  flex: 1;
+  min-width: 0;
+  height: 38px;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: var(--ink);
+  font-size: 13.5px;
+}
+
+.rag-input-form input::placeholder {
+  color: var(--ink-faint);
+}
+
+.rag-input-form button {
+  flex-shrink: 0;
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--signal-strong);
+  color: #fff;
+
+  cursor: pointer;
+
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.rag-input-form button:hover:not(:disabled) {
+  background: var(--signal);
+  transform: scale(1.05);
+}
+
+.rag-input-form button:disabled {
+  background: var(--line);
+  color: var(--ink-faint);
+  cursor: not-allowed;
+}
+
+.rag-disclaimer {
+  margin-top: 10px;
+
+  color: var(--ink-faint);
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .rag-header {
+    padding: 13px 14px;
+  }
+
+  .rag-brand p {
+    display: none;
+  }
+
+  .rag-status {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+  .rag-messages {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .rag-message {
+    max-width: 96%;
+  }
+
+  .rag-input-wrapper {
+    padding: 10px 12px 12px;
+  }
+}

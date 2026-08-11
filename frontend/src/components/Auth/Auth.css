@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Auth — Login / Register
+   Split feel on desktop: quiet paper canvas, single centered card with a
+   "ledger tab" corner nodding to NexaRAG's document-grounded identity.
+   ========================================================================== */
+
+.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(circle at 12% -8%, rgba(44, 74, 140, 0.08), transparent 42%),
+    radial-gradient(circle at 100% 0%, rgba(168, 121, 31, 0.06), transparent 38%),
+    var(--paper);
+  position: relative;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+
+  padding: 40px 36px 34px;
+
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Signature: small ledger tab clipped into the top-right corner */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: 28px;
+  width: 34px;
+  height: 10px;
+  background: var(--brass);
+  border-radius: 0 0 4px 4px;
+}
+
+.auth-logo {
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 24px;
+
+  border-radius: var(--r-md);
+
+  background: var(--signal-strong);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-card h1 {
+  font-size: 25px;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.auth-subtitle {
+  margin: 10px 0 28px;
+
+  color: var(--ink-soft);
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.auth-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+
+  margin-bottom: 20px;
+  padding: 12px 14px;
+
+  border: 1px solid #f3c6c3;
+  border-radius: var(--r-sm);
+
+  background: var(--danger-soft);
+
+  color: var(--danger);
+
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form label {
+  margin-bottom: 7px;
+
+  color: var(--ink);
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+.auth-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  height: 46px;
+
+  margin-bottom: 18px;
+  padding: 0 14px;
+
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+
+  background: var(--surface-sunken);
+
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.auth-input:focus-within {
+  border-color: var(--signal);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--signal-soft);
+}
+
+.auth-input svg {
+  flex-shrink: 0;
+  color: var(--ink-faint);
+}
+
+.auth-input:focus-within svg {
+  color: var(--signal);
+}
+
+.auth-input input {
+  width: 100%;
+  height: 100%;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: var(--ink);
+
+  font-size: 14.5px;
+}
+
+.auth-input input::placeholder {
+  color: var(--ink-faint);
+}
+
+.auth-input input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.auth-submit {
+  height: 47px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-top: 6px;
+
+  border: none;
+  border-radius: var(--r-sm);
+
+  background: var(--signal-strong);
+  color: #ffffff;
+
+  font-size: 14.5px;
+  font-weight: 600;
+  font-family: var(--font-display);
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: var(--signal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.auth-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.auth-switch {
+  margin: 26px 0 0;
+
+  text-align: center;
+
+  color: var(--ink-soft);
+
+  font-size: 13.5px;
+}
+
+.auth-switch a {
+  color: var(--signal-strong);
+
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .auth-page {
+    padding: 16px;
+  }
+
+  .auth-card {
+    padding: 30px 22px 26px;
+    border-radius: var(--r-lg);
+  }
+
+  .auth-card h1 {
+    font-size: 22px;
+  }
+}

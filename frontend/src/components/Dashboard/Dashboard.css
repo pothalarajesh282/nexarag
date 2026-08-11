@@ -1,0 +1,208 @@
+/* ==========================================================================
+   Dashboard — app shell, header, and content grid
+   Dark chrome header over a warm paper canvas. The page scrolls normally;
+   on desktop the chat console sticks in place in the right column while
+   the left column (upload + documents) scrolls past it with the page.
+   ========================================================================== */
+
+.dashboard {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  overflow-x: hidden;
+}
+
+/* ---------- Header ---------- */
+.dashboard-header {
+  position: sticky;
+  top: 0;
+  flex: 0 0 auto;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  padding: 16px 28px;
+
+  background: var(--chrome);
+  border-bottom: 1px solid var(--chrome-line);
+}
+
+.dashboard-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brass), var(--signal) 60%, transparent);
+  opacity: 0.8;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  color: var(--chrome-text);
+  font-size: 19px;
+  letter-spacing: -0.2px;
+}
+
+.dashboard-header h1::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background: var(--brass);
+  vertical-align: middle;
+}
+
+.dashboard-header p {
+  margin: 3px 0 0;
+  color: var(--chrome-text-soft);
+  font-size: 13px;
+}
+
+.dashboard-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-user span {
+  padding: 6px 12px;
+
+  border: 1px solid var(--chrome-line);
+  border-radius: 999px;
+
+  background: var(--chrome-soft);
+  color: var(--chrome-text-soft);
+
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.dashboard-user button {
+  height: 36px;
+  padding: 0 16px;
+
+  border: 1px solid var(--chrome-line);
+  border-radius: var(--r-sm);
+
+  background: transparent;
+  color: var(--chrome-text);
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.dashboard-user button:hover {
+  background: var(--chrome-soft);
+  border-color: #3a3e56;
+}
+
+/* ---------- Content grid (mobile-first: natural page scroll) ---------- */
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "chat"
+    "upload"
+    "docs";
+  gap: 14px;
+
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 14px 14px 24px;
+}
+
+.dashboard-content > .pdf-upload {
+  grid-area: upload;
+}
+
+.dashboard-content > .documents {
+  grid-area: docs;
+}
+
+.dashboard-content > .rag-page {
+  grid-area: chat;
+  height: min(70svh, 560px);
+  min-height: 380px;
+}
+
+/* ---------- Desktop: chat stays fixed in view; the left column
+   (upload + documents) scrolls normally with the page. ---------- */
+@media (min-width: 900px) {
+  .dashboard-content {
+    grid-template-columns: minmax(300px, 380px) 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "upload chat"
+      "docs   chat";
+    align-items: start;
+    gap: 22px;
+    padding: 22px 28px 40px;
+  }
+
+  .dashboard-content > .pdf-upload {
+    grid-area: upload;
+  }
+
+  /* Manual scroll: the documents list simply grows with its content
+     and scrolls along with the rest of the page. */
+  .dashboard-content > .documents {
+    grid-area: docs;
+  }
+
+  /* Fixed: the chat panel sticks below the header and stays put while
+     the left column scrolls past it. */
+  .dashboard-content > .rag-page {
+    grid-area: chat;
+    position: sticky;
+    top: 88px;
+    height: calc(100vh - 120px);
+    height: calc(100svh - 120px);
+    max-height: 780px;
+  }
+}
+
+@media (min-width: 1080px) {
+  .dashboard-content {
+    grid-template-columns: minmax(320px, 400px) 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-header {
+    padding: 14px 16px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 17px;
+  }
+
+  .dashboard-user {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dashboard-content {
+    padding: 14px 12px 20px;
+    gap: 14px;
+  }
+}
