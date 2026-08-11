@@ -1,23 +1,34 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
-
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
-
 import Dashboard from "./components/Dashboard/Dashboard";
+import AppLoader from "./components/AppLoader/AppLoader";
 
-function App() {
+export default function App() {
+  const [appLoading, setAppLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAppLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (appLoading) {
+    return <AppLoader />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        {/* Login */}
         <Route path="/login" element={<Login />} />
 
-        {/* Employee registration */}
         <Route path="/register" element={<Register />} />
 
-        {/* Protected Dashboard */}
         <Route
           path="/"
           element={
@@ -27,11 +38,8 @@ function App() {
           }
         />
 
-        {/* Unknown route */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
