@@ -1,7 +1,9 @@
 /* ==========================================================================
    Auth — Login / Register
-   Split feel on desktop: quiet paper canvas, single centered card with a
-   "ledger tab" corner nodding to NexaRAG's document-grounded identity.
+   Console gatehouse: cool slate canvas, single centered card with a
+   "ledger tab" corner nodding to NexaRAG's document-grounded identity,
+   and a faint schematic grid behind it — the enterprise-console texture
+   carried from the dashboard's empty chat state.
    ========================================================================== */
 
 .auth-page {
@@ -12,9 +14,12 @@
   justify-content: center;
   padding: 32px 20px;
   background:
-    radial-gradient(circle at 12% -8%, rgba(44, 74, 140, 0.08), transparent 42%),
-    radial-gradient(circle at 100% 0%, rgba(168, 121, 31, 0.06), transparent 38%),
-    var(--paper);
+    radial-gradient(circle at 12% -8%, rgba(52, 84, 209, 0.09), transparent 42%),
+    radial-gradient(circle at 100% 0%, rgba(169, 120, 28, 0.07), transparent 38%),
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
+    var(--canvas);
+  background-size: auto, auto, 28px 28px, 28px 28px;
   position: relative;
 }
 
@@ -31,8 +36,10 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Signature: small ledger tab clipped into the top-right corner */
-.auth-card::before {
+/* Signature: small ledger tab clipped into the top-right corner.
+   Positioned absolutely (out of normal flow), so it's placed on ::after
+   to leave ::before free for the in-flow eyebrow line below. */
+.auth-card::after {
   content: "";
   position: absolute;
   top: -1px;
@@ -41,6 +48,20 @@
   height: 10px;
   background: var(--brass);
   border-radius: 0 0 4px 4px;
+}
+
+/* Enterprise console eyebrow — quiet system-copy above the logo,
+   decorative only, matches the mono metadata style used everywhere else */
+.auth-card::before {
+  content: "SECURE ACCESS · NEXARAG CONSOLE";
+  display: block;
+  margin-bottom: 16px;
+
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.1px;
 }
 
 .auth-logo {
@@ -55,7 +76,7 @@
 
   border-radius: var(--r-md);
 
-  background: var(--signal-strong);
+  background: linear-gradient(155deg, var(--signal) 0%, var(--signal-strong) 100%);
   color: #fff;
   box-shadow: var(--shadow-sm);
 }
@@ -258,6 +279,11 @@
   .auth-card {
     padding: 22px 16px 20px;
     border-radius: var(--r-md);
+  }
+
+  /* Eyebrow reads noisy at this width with everything else — drop it */
+  .auth-card::before {
+    display: none;
   }
 
   .auth-logo {

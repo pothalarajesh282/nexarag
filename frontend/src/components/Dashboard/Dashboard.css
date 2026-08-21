@@ -1,8 +1,9 @@
 /* ==========================================================================
    Dashboard — app shell, header, and content grid
-   Dark chrome header over a warm paper canvas. The page scrolls normally;
-   on desktop the chat console sticks in place in the right column while
-   the left column (upload + documents) scrolls past it with the page.
+   Dark chrome command bar over a cool slate console canvas. The page
+   scrolls normally; on desktop the chat console sticks in place in the
+   right column while the left column (upload + documents) scrolls past
+   it with the page.
    ========================================================================== */
 
 .dashboard {
@@ -10,7 +11,7 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  background: var(--paper);
+  background: var(--canvas);
   overflow-x: hidden;
 }
 
@@ -41,8 +42,8 @@
   right: 0;
   bottom: -1px;
   height: 2px;
-  background: linear-gradient(90deg, var(--brass), var(--signal) 60%, transparent);
-  opacity: 0.8;
+  background: var(--rail);
+  opacity: 0.9;
 }
 
 /* Brand: mark + wordmark + welcome line */
@@ -307,7 +308,7 @@
 
 .dashboard-content > .rag-page {
   grid-area: chat;
-  height: min(70svh, 560px);
+  height: min(70svh, 70dvh, 560px);
   min-height: 380px;
 }
 
@@ -362,7 +363,7 @@
   }
 
   .dashboard-content > .rag-page {
-    height: min(64svh, 620px);
+    height: min(64svh, 64dvh, 620px);
     min-height: 420px;
   }
 }
@@ -429,7 +430,7 @@
   }
 
   .dashboard-content > .rag-page {
-    height: min(66svh, 520px);
+    height: min(66svh, 66dvh, 520px);
     min-height: 340px;
   }
 }

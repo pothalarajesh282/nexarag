@@ -19,10 +19,44 @@ export default function RAGChat() {
   const [loading, setLoading] = useState(false);
 
   const messagesEndRef = useRef(null);
+  const inputWrapperRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end" });
   }, [messages, loading]);
+
+  // Mobile keyboard fix: iOS Safari (and older Android webviews) don't
+  // reflow the layout when the keyboard opens, so a fixed-height chat
+  // card can end up with its input bar hidden behind the keyboard.
+  // Track the real visible height via visualViewport and nudge the
+  // input bar into view whenever the keyboard shows or resizes.
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+
+    const keepInputVisible = () => {
+      // Only bother while the input actually has focus (keyboard is up)
+      if (document.activeElement?.closest(".rag-input-form")) {
+        inputWrapperRef.current?.scrollIntoView({
+          block: "end",
+          behavior: "smooth",
+        });
+      }
+    };
+
+    viewport.addEventListener("resize", keepInputVisible);
+    return () => viewport.removeEventListener("resize", keepInputVisible);
+  }, []);
+
+  const handleInputFocus = () => {
+    // Give the keyboard animation a beat to finish before scrolling
+    window.setTimeout(() => {
+      inputWrapperRef.current?.scrollIntoView({
+        block: "end",
+        behavior: "smooth",
+      });
+    }, 300);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -204,12 +238,13 @@ export default function RAGChat() {
       </div>
 
       {/* Input */}
-      <div className="rag-input-wrapper">
+      <div className="rag-input-wrapper" ref={inputWrapperRef}>
         <form className="rag-input-form" onSubmit={handleSubmit}>
           <input
             type="text"
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
+            onFocus={handleInputFocus}
             placeholder="Ask something about your documents..."
             aria-label="Ask something about your documents"
             disabled={loading}
