@@ -1,56 +1,65 @@
 /* ==========================================================================
    NexaRAG — Design tokens
-   Enterprise knowledge-assistant. Warm paper canvas + disciplined signal
-   blue + brass "ledger" accent for citations/admin. Space Grotesk for
-   structure, Inter for reading, IBM Plex Mono for data/metadata.
+   Enterprise knowledge-console. Cool slate canvas + a decisive indigo
+   signal + a brass "verified source" accent reserved for citations.
+   Space Grotesk for structure, Inter for reading, IBM Plex Mono for
+   data/metadata. Signature element: a 3px system-status rail pinned to
+   the top of every screen — the one constant thread through auth, the
+   loader, and the console itself.
    ========================================================================== */
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
 
 :root {
-  /* Surfaces */
-  --ink: #14151b;
-  --ink-soft: #4a4d5a;
-  --ink-faint: #7d8091;
-  --paper: #f4f2ec;
+  /* Ink */
+  --ink: #10121c;
+  --ink-soft: #4b5065;
+  --ink-faint: #868ca3;
+
+  /* Cool neutral surfaces (console, not paper) */
+  --canvas: #f3f4f9;
   --surface: #ffffff;
-  --surface-sunken: #faf9f5;
-  --line: #e3e0d4;
-  --line-soft: #ece9dd;
+  --surface-sunken: #eef0f6;
+  --line: #e0e2ee;
+  --line-soft: #ebedf5;
 
-  /* Dark chrome (header / nav) */
-  --chrome: #12141d;
-  --chrome-soft: #1d2030;
-  --chrome-line: #2b2e40;
-  --chrome-text: #eef0f6;
-  --chrome-text-soft: #9a9db3;
+  /* Dark chrome (header / nav / loader) */
+  --chrome: #0a0c17;
+  --chrome-soft: #141829;
+  --chrome-line: #262b42;
+  --chrome-text: #f4f5fb;
+  --chrome-text-soft: #9298b6;
 
-  /* Signal (primary action / brand) */
-  --signal: #2f57a3;
-  --signal-strong: #22386e;
-  --signal-soft: #e9eefb;
-  --signal-line: #c7d4ee;
+  /* Signal — primary product color, a decisive cool indigo */
+  --signal: #3454d1;
+  --signal-strong: #202f6e;
+  --signal-soft: #e9edfc;
+  --signal-line: #c4cef5;
 
-  /* Ledger accent (citations, admin, highlights) */
-  --brass: #a8791f;
-  --brass-soft: #f6ecd6;
-  --brass-line: #e6d3a4;
+  /* Verified-source accent — reserved for citations / admin ledger marks */
+  --brass: #a9781c;
+  --brass-soft: #f7efdc;
+  --brass-line: #e8d7a8;
 
   /* Status */
-  --success: #1e7a4c;
-  --success-soft: #e7f5ee;
-  --danger: #b3261e;
-  --danger-soft: #fbeae9;
+  --success: #0f8f6f;
+  --success-soft: #e2f7f1;
+  --danger: #c23b30;
+  --danger-soft: #fceceb;
+
+  /* System rail — the always-on status thread across every screen */
+  --rail: linear-gradient(90deg, var(--success) 0%, var(--signal) 55%, var(--brass) 100%);
+  --rail-h: 3px;
 
   /* Elevation */
-  --shadow-sm: 0 1px 2px rgba(20, 21, 27, 0.06);
-  --shadow-md: 0 8px 24px -8px rgba(20, 21, 27, 0.16);
-  --shadow-lg: 0 24px 64px -20px rgba(20, 21, 27, 0.28);
+  --shadow-sm: 0 1px 2px rgba(10, 12, 24, 0.06);
+  --shadow-md: 0 10px 28px -10px rgba(10, 12, 24, 0.18);
+  --shadow-lg: 0 28px 70px -22px rgba(10, 12, 24, 0.32);
 
-  /* Radius */
-  --r-sm: 8px;
-  --r-md: 12px;
-  --r-lg: 18px;
-  --r-xl: 24px;
+  /* Radius — tighter than a consumer app, still soft enough to be warm */
+  --r-sm: 7px;
+  --r-md: 11px;
+  --r-lg: 15px;
+  --r-xl: 20px;
 
   /* Type */
   --font-display: "Space Grotesk", "Inter", -apple-system, sans-serif;
@@ -76,7 +85,7 @@ body,
 
 body {
   margin: 0;
-  background: var(--paper);
+  background: var(--canvas);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 15px;
@@ -110,6 +119,17 @@ a,
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+}
+
+/* Signature: a slim always-on system-status rail across the very top
+   of the app — present through auth, the loader, and the console. */
+#root::before {
+  content: "";
+  display: block;
+  flex: 0 0 auto;
+  height: var(--rail-h);
+  width: 100%;
+  background: var(--rail);
 }
 
 h1,
@@ -147,7 +167,7 @@ input {
   color: var(--signal-strong);
 }
 
-/* Scrollbars (WebKit) — quiet, thin, matches paper canvas */
+/* Scrollbars (WebKit) — quiet, thin, matches the cool console canvas */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -158,13 +178,13 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d8d4c4;
+  background: #ccd0e0;
   border-radius: 999px;
-  border: 2px solid var(--paper);
+  border: 2px solid var(--canvas);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c9c4ae;
+  background: #b7bcd4;
 }
 
 /* Consistent, visible keyboard focus everywhere */

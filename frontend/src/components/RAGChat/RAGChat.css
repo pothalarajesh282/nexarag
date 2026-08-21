@@ -2,7 +2,8 @@
    RAGChat — document-grounded chat console
    Signature element: citation "ledger tabs" under assistant replies — small
    brass index-tab chips that visually cite the source count, echoing the
-   tab strip on Documents cards. Dark header, warm paper message field.
+   tab strip on Documents cards. Dark header, cool slate message field with
+   a faint schematic grid — the same texture as the auth screen.
    ========================================================================== */
 
 .rag-page {
@@ -116,7 +117,11 @@
   overscroll-behavior: contain;
   scroll-behavior: smooth;
 
-  background: var(--paper);
+  background:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
+    var(--canvas);
+  background-size: 28px 28px, 28px 28px, auto;
 }
 
 /* Empty state */
@@ -392,6 +397,11 @@
 
   background: var(--surface);
   border-top: 1px solid var(--line);
+
+  /* Keeps a breathing gap above the wrapper when it's scrolled into
+     view (e.g. on keyboard focus), so it never sits flush against
+     the edge of the visible viewport. */
+  scroll-margin-bottom: 12px;
 }
 
 .rag-input-form {
@@ -402,7 +412,7 @@
   padding: 5px 5px 5px 16px;
 
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--r-lg);
 
   background: var(--surface-sunken);
 
@@ -437,13 +447,15 @@
 
   width: 36px;
   height: 36px;
+  min-width: 36px;
+  min-height: 36px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border: none;
-  border-radius: 50%;
+  border-radius: var(--r-md);
 
   background: var(--signal-strong);
   color: #fff;
