@@ -1,12 +1,16 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabase";
 
 const AuthContext = createContext(null);
+
+const INACTIVITY_TIME = 60 * 60 * 1000; // 1 hour
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const inactivityTimer = useRef(null);
 
   const loadProfile = async (userId) => {
     const { data, error } = await supabase
@@ -24,6 +28,22 @@ export function AuthProvider({ children }) {
     setProfile(data);
   };
 
+  // Reset the 1-hour inactivity timer
+  const resetInactivityTimer = () => {
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+
+    inactivityTimer.current = setTimeout(async () => {
+      console.log("User inactive for 1 hour. Logging out.");
+
+      await supabase.auth.signOut();
+
+      setUser(null);
+      setProfile(null);
+    }, INACTIVITY_TIME);
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -37,6 +57,9 @@ export function AuthProvider({ children }) {
       if (session?.user) {
         setUser(session.user);
         await loadProfile(session.user.id);
+
+        // Start inactivity timer
+        resetInactivityTimer();
       }
 
       setLoading(false);
@@ -46,15 +69,26 @@ export function AuthProvider({ children }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth event:", event);
+
       if (!mounted) return;
 
       if (session?.user) {
         setUser(session.user);
-        await loadProfile(session.user.id);
+
+        setTimeout(() => {
+          loadProfile(session.user.id);
+        }, 0);
+
+        resetInactivityTimer();
       } else {
         setUser(null);
         setProfile(null);
+
+        if (inactivityTimer.current) {
+          clearTimeout(inactivityTimer.current);
+        }
       }
 
       setLoading(false);
@@ -63,10 +97,46 @@ export function AuthProvider({ children }) {
     return () => {
       mounted = false;
       subscription.unsubscribe();
+
+      if (inactivityTimer.current) {
+        clearTimeout(inactivityTimer.current);
+      }
     };
   }, []);
 
+  // Detect user activity
+  useEffect(() => {
+    const activityEvents = [
+      "mousedown",
+      "mousemove",
+      "keydown",
+      "scroll",
+      "touchstart",
+      "click",
+    ];
+
+    const handleActivity = () => {
+      if (user) {
+        resetInactivityTimer();
+      }
+    };
+
+    activityEvents.forEach((event) => {
+      window.addEventListener(event, handleActivity);
+    });
+
+    return () => {
+      activityEvents.forEach((event) => {
+        window.removeEventListener(event, handleActivity);
+      });
+    };
+  }, [user]);
+
   const logout = async () => {
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+
     const { error } = await supabase.auth.signOut();
 
     if (error) {

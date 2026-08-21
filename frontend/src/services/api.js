@@ -11,9 +11,16 @@ api.interceptors.request.use(
   async (config) => {
     const {
       data: { session },
+      error,
     } = await supabase.auth.getSession();
 
+    if (error) {
+      console.error("Session error:", error);
+      return config;
+    }
+
     if (session?.access_token) {
+      config.headers = config.headers || {};
       config.headers.Authorization = `Bearer ${session.access_token}`;
     }
 

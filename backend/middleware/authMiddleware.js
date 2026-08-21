@@ -24,6 +24,9 @@ const authenticateToken = async (req, res, next) => {
       data: { user },
       error,
     } = await supabase.auth.getUser(token);
+    // console.log("Token received:", !!token);
+    // console.log("Supabase user:", user);
+    // console.log("Supabase error:", error);
 
     if (error || !user) {
       return res.status(401).json({
