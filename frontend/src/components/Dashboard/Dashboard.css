@@ -14,20 +14,21 @@
   overflow-x: hidden;
 }
 
-/* ---------- Header ---------- */
+/* ---------- Header / navbar ---------- */
 .dashboard-header {
   position: sticky;
   top: 0;
   flex: 0 0 auto;
-  z-index: 20;
+  z-index: 30;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-wrap: wrap;
 
-  padding: 16px 28px;
+  min-height: var(--header-h);
+  padding: 14px 28px;
+  padding-top: max(14px, env(safe-area-inset-top, 0px));
 
   background: var(--chrome);
   border-bottom: 1px solid var(--chrome-line);
@@ -44,37 +45,63 @@
   opacity: 0.8;
 }
 
-.dashboard-header h1 {
-  margin: 0;
-  color: var(--chrome-text);
-  font-size: 19px;
-  letter-spacing: -0.2px;
-}
-
-.dashboard-header h1::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 10px;
-  border-radius: 2px;
-  background: var(--brass);
-  vertical-align: middle;
-}
-
-.dashboard-header p {
-  margin: 3px 0 0;
-  color: var(--chrome-text-soft);
-  font-size: 13px;
-}
-
-.dashboard-user {
+/* Brand: mark + wordmark + welcome line */
+.dashboard-brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
-.dashboard-user span {
+.dashboard-brand-mark {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(155deg, var(--signal) 0%, var(--signal-strong) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  position: relative;
+}
+
+.dashboard-brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--brass);
+}
+
+.dashboard-brand > div {
+  min-width: 0;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  color: var(--chrome-text);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dashboard-welcome {
+  margin: 2px 0 0;
+  color: var(--chrome-text-soft);
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Shared role pill (used in both desktop nav and mobile menu) */
+.dashboard-role {
+  flex-shrink: 0;
   padding: 6px 12px;
 
   border: 1px solid var(--chrome-line);
@@ -90,7 +117,19 @@
   text-transform: uppercase;
 }
 
-.dashboard-user button {
+/* Desktop nav: role pill + logout, inline, always visible ≥ 761px */
+.dashboard-user-desktop {
+  display: none;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard-logout {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
   height: 36px;
   padding: 0 16px;
 
@@ -107,9 +146,136 @@
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.dashboard-user button:hover {
+.dashboard-logout:hover {
   background: var(--chrome-soft);
   border-color: #3a3e56;
+}
+
+/* Mobile nav: single toggle button + dropdown menu, shown < 761px */
+.dashboard-nav-mobile {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.dashboard-nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--chrome-line);
+  border-radius: var(--r-sm);
+
+  background: var(--chrome-soft);
+  color: var(--chrome-text);
+  cursor: pointer;
+
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.dashboard-nav-toggle:hover {
+  background: #262a3d;
+  border-color: #3a3e56;
+}
+
+.dashboard-nav-toggle[aria-expanded="true"] {
+  background: var(--signal-strong);
+  border-color: var(--signal-strong);
+  color: #fff;
+}
+
+.dashboard-nav-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 40;
+
+  width: 220px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 14px;
+
+  background: var(--chrome-soft);
+  border: 1px solid var(--chrome-line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+
+  animation: dashboard-menu-in 0.14s ease both;
+}
+
+@keyframes dashboard-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-nav-menu-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.dashboard-nav-menu-user p {
+  margin: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--chrome-text);
+  font-size: 12.5px;
+}
+
+.dashboard-nav-menu-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  height: 38px;
+
+  border: 1px solid var(--chrome-line);
+  border-radius: var(--r-sm);
+
+  background: transparent;
+  color: var(--chrome-text);
+
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.dashboard-nav-menu-logout:hover {
+  background: var(--danger-soft);
+  border-color: #f3c6c3;
+  color: var(--danger);
+}
+
+/* Navbar breakpoint: inline nav from 761px up, toggle menu below it.
+   761px (not 900px) so the navbar switches independently of the content
+   grid's desktop split — a wide phone/small tablet in landscape gets the
+   roomier inline nav even before the two-column content layout kicks in. */
+@media (min-width: 761px) {
+  .dashboard-user-desktop {
+    display: flex;
+  }
+
+  .dashboard-nav-mobile {
+    display: none;
+  }
 }
 
 /* ---------- Content grid (mobile-first: natural page scroll) ---------- */
@@ -187,22 +353,83 @@
   }
 }
 
-@media (max-width: 560px) {
+/* ---------- Tablet (601–899px): still one column, but roomier
+   than phone — content gets breathing room without the desktop split. ---------- */
+@media (min-width: 601px) and (max-width: 899px) {
+  .dashboard-content {
+    padding: 20px 24px 32px;
+    gap: 18px;
+  }
+
+  .dashboard-content > .rag-page {
+    height: min(64svh, 620px);
+    min-height: 420px;
+  }
+}
+
+/* ---------- Medium phones (381–760px): toggle-menu navbar ---------- */
+@media (max-width: 760px) {
   .dashboard-header {
-    padding: 14px 16px;
+    min-height: var(--header-h-mobile);
+    padding: 11px 16px;
+    padding-top: max(11px, env(safe-area-inset-top, 0px));
   }
 
   .dashboard-header h1 {
-    font-size: 17px;
+    font-size: 16.5px;
   }
 
-  .dashboard-user {
-    width: 100%;
-    justify-content: space-between;
+  .dashboard-welcome {
+    font-size: 11.5px;
+  }
+
+  .dashboard-brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* ---------- Small phones (≤380px, e.g. iPhone SE / older Android) ---------- */
+@media (max-width: 380px) {
+  .dashboard-header {
+    padding: 9px 12px;
+    padding-top: max(9px, env(safe-area-inset-top, 0px));
+  }
+
+  .dashboard-header h1 {
+    font-size: 15px;
+  }
+
+  .dashboard-welcome {
+    display: none;
+  }
+
+  .dashboard-brand {
+    gap: 9px;
+  }
+
+  .dashboard-brand-mark {
+    width: 27px;
+    height: 27px;
+  }
+
+  .dashboard-nav-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .dashboard-nav-menu {
+    width: 190px;
+    right: -4px;
   }
 
   .dashboard-content {
-    padding: 14px 12px 20px;
-    gap: 14px;
+    padding: 10px 8px 16px;
+    gap: 10px;
+  }
+
+  .dashboard-content > .rag-page {
+    height: min(66svh, 520px);
+    min-height: 340px;
   }
 }

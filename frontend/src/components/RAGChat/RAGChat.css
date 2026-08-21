@@ -177,12 +177,12 @@
 
 .rag-prompts {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
 
   width: 100%;
-  /* max-width: 380px;
-  margin-top: 22px; */
+  max-width: 380px;
+  margin-top: 22px;
 }
 
 .rag-prompts button {
@@ -190,6 +190,7 @@
   align-items: center;
   gap: 10px;
 
+  width: 100%;
   padding: 11px 14px;
 
   border: 1px solid var(--line);
@@ -387,7 +388,7 @@
 .rag-input-wrapper {
   flex: 0 0 auto;
 
-  padding: 14px 18px 16px;
+  padding: 14px 18px calc(16px + env(safe-area-inset-bottom, 0px));
 
   background: var(--surface);
   border-top: 1px solid var(--line);
@@ -471,6 +472,18 @@
   text-align: center;
 }
 
+/* ---------- Tablet (601–899px) ---------- */
+@media (min-width: 601px) and (max-width: 899px) {
+  .rag-messages {
+    padding: 18px 20px;
+  }
+
+  .rag-message {
+    max-width: 82%;
+  }
+}
+
+/* ---------- Medium phones (381–560px) ---------- */
 @media (max-width: 560px) {
   .rag-header {
     padding: 13px 14px;
@@ -494,7 +507,102 @@
     max-width: 96%;
   }
 
+  .rag-prompts {
+    max-width: none;
+  }
+
   .rag-input-wrapper {
-    padding: 10px 12px 12px;
+    padding: 10px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* 16px prevents iOS Safari from auto-zooming the page on focus */
+  .rag-input-form input {
+    font-size: 16px;
+  }
+
+  .rag-input-form button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ---------- Small phones (≤380px) ---------- */
+@media (max-width: 380px) {
+  .rag-header {
+    padding: 11px 12px;
+    gap: 8px;
+  }
+
+  .rag-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .rag-brand h1 {
+    font-size: 13.5px;
+  }
+
+  .rag-status {
+    padding: 6px;
+    font-size: 0; /* collapses "AI Online" text node, keeps the dot (sized by width/height, not font) */
+  }
+
+  .rag-empty {
+    padding: 22px 14px;
+  }
+
+  .rag-empty-icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 14px;
+  }
+
+  .rag-empty h2 {
+    font-size: 17px;
+  }
+
+  .rag-empty p {
+    font-size: 12.5px;
+  }
+
+  .rag-messages {
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .rag-message {
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .rag-message-avatar {
+    width: 26px;
+    height: 26px;
+  }
+
+  .rag-message-content {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .rag-input-wrapper {
+    padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .rag-input-form {
+    padding: 4px 4px 4px 12px;
+  }
+
+  .rag-input-form input {
+    height: 34px;
+  }
+
+  .rag-input-form button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .rag-disclaimer {
+    font-size: 10px;
   }
 }

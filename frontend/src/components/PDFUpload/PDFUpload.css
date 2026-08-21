@@ -260,3 +260,44 @@
     display: none;
   }
 }
+
+/* ---------- Tablet (601–899px) ---------- */
+@media (min-width: 601px) and (max-width: 899px) {
+  .pdf-upload {
+    padding: 18px 20px;
+  }
+
+  .pdf-upload-header p {
+    display: block;
+
+    margin-top: 2px;
+    color: var(--ink-soft);
+    font-size: 12px;
+  }
+}
+
+/* ---------- Small phones (≤380px) ---------- */
+@media (max-width: 380px) {
+  .pdf-upload {
+    padding: 10px 12px;
+  }
+
+  .pdf-upload-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .pdf-upload-header h2 {
+    font-size: 12.5px;
+  }
+
+  .pdf-file-input {
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .pdf-upload-button {
+    height: 36px;
+    font-size: 12px;
+  }
+}

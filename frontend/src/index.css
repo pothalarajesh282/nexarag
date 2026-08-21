@@ -10,7 +10,7 @@
   /* Surfaces */
   --ink: #14151b;
   --ink-soft: #4a4d5a;
-  --ink-faint: #8a8d99;
+  --ink-faint: #7d8091;
   --paper: #f4f2ec;
   --surface: #ffffff;
   --surface-sunken: #faf9f5;
@@ -18,15 +18,15 @@
   --line-soft: #ece9dd;
 
   /* Dark chrome (header / nav) */
-  --chrome: #14161f;
+  --chrome: #12141d;
   --chrome-soft: #1d2030;
   --chrome-line: #2b2e40;
   --chrome-text: #eef0f6;
   --chrome-text-soft: #9a9db3;
 
   /* Signal (primary action / brand) */
-  --signal: #2c4a8c;
-  --signal-strong: #21376b;
+  --signal: #2f57a3;
+  --signal-strong: #22386e;
   --signal-soft: #e9eefb;
   --signal-line: #c7d4ee;
 
@@ -57,6 +57,10 @@
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
+  /* Layout */
+  --header-h: 68px;
+  --header-h-mobile: 58px;
+
   color-scheme: light;
 }
 
@@ -80,6 +84,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Touch-friendly defaults: no sticky grey flash on tap, no accidental
+   text selection on interactive controls, momentum scroll everywhere */
+button,
+a,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+* {
+  -webkit-overflow-scrolling: touch;
 }
 
 #root {
@@ -112,6 +131,15 @@ button {
 
 input {
   font-family: inherit;
+}
+
+/* Fluid base size: comfortable on small phones, matches desktop at 15px
+   from the small-tablet breakpoint up. Prevents cramped 12–13px text on
+   360–400px phones without touching layout. */
+@media (max-width: 380px) {
+  body {
+    font-size: 14.5px;
+  }
 }
 
 ::selection {
