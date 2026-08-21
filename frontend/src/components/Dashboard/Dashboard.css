@@ -12,7 +12,6 @@
    in the right column while the left column (upload + documents) scrolls.
    ========================================================================== */
 
-
 /* ==========================================================================
    Dashboard Shell
 >>>>>>> feature/rag-improvements
@@ -24,16 +23,12 @@
 
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
   background: var(--canvas);
-=======
 
   background: var(--canvas);
 
->>>>>>> feature/rag-improvements
   overflow-x: hidden;
 }
-
 
 /* ==========================================================================
    Header / Navbar
@@ -74,16 +69,9 @@
   bottom: -1px;
 
   height: 2px;
-<<<<<<< HEAD
   background: var(--rail);
-=======
-
-  background: var(--rail);
-
->>>>>>> feature/rag-improvements
   opacity: 0.9;
 }
-
 
 /* ==========================================================================
    Brand
@@ -99,7 +87,6 @@
 
   min-width: 0;
 }
-
 
 /* NexaRAG Logo */
 
@@ -117,13 +104,11 @@
   border-radius: 8px;
 }
 
-
 /* Brand Text Container */
 
 .dashboard-brand > div {
   min-width: 0;
 }
-
 
 /* NexaRAG Title */
 
@@ -146,7 +131,6 @@
   text-overflow: ellipsis;
 }
 
-
 /* Welcome Text */
 
 .dashboard-welcome {
@@ -165,7 +149,6 @@
 
   text-overflow: ellipsis;
 }
-
 
 /* ==========================================================================
    Role Pill
@@ -195,7 +178,6 @@
   text-transform: uppercase;
 }
 
-
 /* ==========================================================================
    Desktop Navigation
    ========================================================================== */
@@ -207,7 +189,6 @@
 
   gap: 12px;
 }
-
 
 /* Logout Button */
 
@@ -251,7 +232,6 @@
   border-color: #3a3e56;
 }
 
-
 /* ==========================================================================
    Mobile Navigation
    ========================================================================== */
@@ -261,7 +241,6 @@
 
   flex-shrink: 0;
 }
-
 
 /* Mobile Menu Toggle */
 
@@ -303,7 +282,6 @@
   color: #fff;
 }
 
-
 /* Mobile Dropdown */
 
 .dashboard-nav-menu {
@@ -336,7 +314,6 @@
   animation: dashboard-menu-in 0.14s ease both;
 }
 
-
 /* Menu Animation */
 
 @keyframes dashboard-menu-in {
@@ -352,7 +329,6 @@
     transform: translateY(0);
   }
 }
-
 
 /* Mobile User Information */
 
@@ -381,7 +357,6 @@
 
   font-size: 12.5px;
 }
-
 
 /* Mobile Logout */
 
@@ -424,7 +399,6 @@
   color: var(--danger);
 }
 
-
 /* ==========================================================================
    Navbar Breakpoint
    Desktop navigation from 761px+
@@ -439,7 +413,6 @@
     display: none;
   }
 }
-
 
 /* ==========================================================================
    Content Grid
@@ -471,13 +444,11 @@
   padding: 14px 14px 24px;
 }
 
-
 /* PDF Upload */
 
 .dashboard-content > .pdf-upload {
   grid-area: upload;
 }
-
 
 /* Documents */
 
@@ -485,25 +456,12 @@
   grid-area: docs;
 }
 
-
 /* Chat */
 
 .dashboard-content > .rag-page {
   grid-area: chat;
-<<<<<<< HEAD
-  height: min(70svh, 70dvh, 560px);
-=======
-
-  height: min(70svh, 70dvh, 560px);
-
->>>>>>> feature/rag-improvements
   min-height: 380px;
 }
-
-
-/* ==========================================================================
-   Desktop Layout
-   ========================================================================== */
 
 @media (min-width: 900px) {
   .dashboard-content {
@@ -526,20 +484,17 @@
     padding: 22px 28px 40px;
   }
 
-
   /* Upload */
 
   .dashboard-content > .pdf-upload {
     grid-area: upload;
   }
 
-
   /* Documents */
 
   .dashboard-content > .documents {
     grid-area: docs;
   }
-
 
   /* Chat */
 
@@ -558,7 +513,6 @@
   }
 }
 
-
 /* ==========================================================================
    Large Desktop
    ========================================================================== */
@@ -570,7 +524,6 @@
       1fr;
   }
 }
-
 
 /* ==========================================================================
    Tablet
@@ -586,19 +539,9 @@
 
   .dashboard-content > .rag-page {
     height: min(64svh, 64dvh, 620px);
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/rag-improvements
     min-height: 420px;
   }
 }
-
-
-/* ==========================================================================
-   Mobile
-   <= 760px
-   ========================================================================== */
 
 @media (max-width: 760px) {
   .dashboard-header {
@@ -606,10 +549,8 @@
 
     padding: 11px 16px;
 
-    padding-top:
-      max(11px, env(safe-area-inset-top, 0px));
+    padding-top: max(11px, env(safe-area-inset-top, 0px));
   }
-
 
   /* Smaller logo */
 
@@ -621,17 +562,14 @@
     border-radius: 7px;
   }
 
-
   .dashboard-header h1 {
     font-size: 16.5px;
   }
-
 
   .dashboard-welcome {
     font-size: 11.5px;
   }
 }
-
 
 /* ==========================================================================
    Small Phones
@@ -642,10 +580,8 @@
   .dashboard-header {
     padding: 9px 12px;
 
-    padding-top:
-      max(9px, env(safe-area-inset-top, 0px));
+    padding-top: max(9px, env(safe-area-inset-top, 0px));
   }
-
 
   /* Small logo */
 
@@ -657,21 +593,17 @@
     border-radius: 6px;
   }
 
-
   .dashboard-header h1 {
     font-size: 15px;
   }
-
 
   .dashboard-welcome {
     font-size: 10.5px;
   }
 
-
   .dashboard-brand {
     gap: 9px;
   }
-
 
   .dashboard-nav-toggle {
     width: 36px;
@@ -679,20 +611,17 @@
     height: 36px;
   }
 
-
   .dashboard-nav-menu {
     width: 190px;
 
     right: -4px;
   }
 
-
   .dashboard-content {
     padding: 10px 8px 16px;
 
     gap: 10px;
   }
-
 
   .dashboard-content > .rag-page {
     height: min(66svh, 66dvh, 520px);
