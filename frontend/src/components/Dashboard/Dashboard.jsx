@@ -50,7 +50,12 @@ export default function Dashboard() {
     <div className="dashboard">
       <header className="dashboard-header">
         <div className="dashboard-brand">
-          <span className="dashboard-brand-mark" aria-hidden="true" />
+          <img
+            src="/nexarag-logo.svg"
+            alt="NexaRAG"
+            className="dashboard-logo"
+          />
+
           <div>
             <h1>NexaRAG</h1>
             <p className="dashboard-welcome">Welcome, {displayName}</p>
@@ -59,9 +64,15 @@ export default function Dashboard() {
 
         {/* Desktop nav: inline, always visible */}
         <div className="dashboard-user dashboard-user-desktop">
-          <span className="dashboard-role">{isAdmin ? "Admin" : "Employee"}</span>
+          <span className="dashboard-role">
+            {isAdmin ? "Admin" : "Employee"}
+          </span>
 
-          <button type="button" className="dashboard-logout" onClick={handleLogout}>
+          <button
+            type="button"
+            className="dashboard-logout"
+            onClick={handleLogout}
+          >
             <LogOut size={15} />
             Logout
           </button>
@@ -82,7 +93,9 @@ export default function Dashboard() {
           {menuOpen && (
             <div className="dashboard-nav-menu" role="menu">
               <div className="dashboard-nav-menu-user">
-                <span className="dashboard-role">{isAdmin ? "Admin" : "Employee"}</span>
+                <span className="dashboard-role">
+                  {isAdmin ? "Admin" : "Employee"}
+                </span>
                 <p>{displayName}</p>
               </div>
 
